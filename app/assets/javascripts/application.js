@@ -42,9 +42,9 @@ $(function() {
 });
 
 $(function() {
-  $("[id*='show-preview']").click(
+  $("[id^='show-preview']").click(
     function() {
-      id = '';
+      var id = '';
       var text = $(this).closest('form').find('textarea').val();
       if ($(this)[0].id.slice(-5) != 'eview') id = $(this)[0].id.slice(-5);
       $.ajax('/markdown/preview.js?source=' + encodeURIComponent(text) + '&element_id='+ id);
@@ -52,14 +52,13 @@ $(function() {
 });
 
 $(function() {
-  $("[id*='show-source']").click(
-    setTimeout(
-      function () {
-        $(this).closest('form').find('#preview-contents').addClass('hidden');
-        $(this).closest('form').find('#loading-spinner').removeClass('hidden');
-      }, 200
-    )
-  );
+  $("[id^='show-source']").click(
+    function(){
+      setTimeout(function () {
+          $(this).closest('form').find('#preview-contents').addClass('hidden');
+          $(this).closest('form').find('#loading-spinner').removeClass('hidden');
+        }, 200);
+    });
 });
 
 $(function(){
@@ -102,5 +101,5 @@ function textcover(txtarea, newtxt) {
         $(txtarea).val().substring(txtarea.selectionStart,txtarea.selectionEnd)+
         newtxt +
         $(txtarea).val().substring(txtarea.selectionEnd)
-   );  
+   );
 }
